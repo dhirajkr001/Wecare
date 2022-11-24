@@ -1,6 +1,8 @@
 package com.app.wecare.controller;
 
 import com.app.wecare.dto.request.CoachDTO;
+import com.app.wecare.dto.response.ErrorResponse;
+import com.app.wecare.dto.response.GenericResponse;
 import com.app.wecare.entity.Coach;
 import com.app.wecare.exception.WecareException;
 import com.app.wecare.mapper.CoachMapper;
@@ -23,15 +25,20 @@ public class CoachRestController {
     CoachService coachService;
 
     @PostMapping(value = "/coaches", consumes = "application/json")
-    ResponseEntity<String> createCoach(@Valid @RequestBody CoachDTO coach, Errors errors) throws WecareException {
+    ResponseEntity<GenericResponse> createCoach(@Valid @RequestBody CoachDTO coach, Errors errors) throws WecareException {
         if(errors.hasErrors()){
             String errMsg = errors.getAllErrors().stream()
                     .map(DefaultMessageSourceResolvable::getDefaultMessage).collect(Collectors.joining(","));
-            return ResponseEntity.ok(errMsg);
+            ErrorResponse errorResponse = new ErrorResponse(errMsg);
+            errorResponse.setCode(401);
+            return ResponseEntity.ok(errorResponse);
         }
         Coach coach1 = CoachMapper.mapCoach(coach);
         String msg = coachService.addCoach(coach1);
-        return new ResponseEntity<>(msg, HttpStatus.OK);
+        GenericResponse response = new GenericResponse();
+        response.setCode(200);
+        response.setMessage(msg);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping
