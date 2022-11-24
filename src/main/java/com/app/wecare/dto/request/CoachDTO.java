@@ -20,7 +20,7 @@ public class CoachDTO {
     private String gender;
     @Temporal(TemporalType.DATE)
     private LocalDate dob;
-    @Size(min = 6)
+    @Size(min = 6, message = "Password size must be greater than 6 characters")
     private String password;
 
     private Integer mobileNumber;
