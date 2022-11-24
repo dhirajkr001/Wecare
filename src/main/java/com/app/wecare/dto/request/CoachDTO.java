@@ -1,4 +1,4 @@
-package com.app.wecare.dto;
+package com.app.wecare.dto.request;
 
 import com.app.wecare.validation.GenderConstraint;
 import lombok.Getter;

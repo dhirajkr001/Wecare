@@ -1,6 +1,6 @@
 package com.app.wecare.controller;
 
-import com.app.wecare.dto.CoachDTO;
+import com.app.wecare.dto.request.CoachDTO;
 import com.app.wecare.entity.Coach;
 import com.app.wecare.exception.WecareException;
 import com.app.wecare.mapper.CoachMapper;

@@ -1,6 +1,6 @@
 package com.app.wecare.mapper;
 
-import com.app.wecare.dto.CoachDTO;
+import com.app.wecare.dto.request.CoachDTO;
 import com.app.wecare.entity.Coach;
 import org.springframework.stereotype.Component;
 

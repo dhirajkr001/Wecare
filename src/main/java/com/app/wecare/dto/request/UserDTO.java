@@ -1,4 +1,4 @@
-package com.app.wecare.dto;
+package com.app.wecare.dto.request;
 
 import lombok.Getter;
 import lombok.Setter;
