@@ -2,8 +2,6 @@ package com.app.wecare.entity;
 
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -24,7 +22,7 @@ public class Coach {
     @Column
     private String password;
     @Column(name = "mobile_no")
-    private Integer mobileNumber;
+    private Long mobileNumber;
     @Column(name = "speciality")
     private String speciality;
 }

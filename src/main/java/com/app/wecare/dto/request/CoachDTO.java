@@ -1,6 +1,7 @@
 package com.app.wecare.dto.request;
 
 import com.app.wecare.validation.GenderConstraint;
+import com.app.wecare.validation.MobileNumberConstraint;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,8 +23,8 @@ public class CoachDTO {
     private LocalDate dob;
     @Size(min = 6, message = "Password size must be greater than 6 characters")
     private String password;
-
-    private Integer mobileNumber;
+    @MobileNumberConstraint
+    private Long mobileNumber;
     @NotBlank
     private String speciality;
 }

@@ -8,7 +8,9 @@ public class WecareException extends Exception{
     private ErrorMessage errorMessage;
 
     public WecareException(String message, Integer code){
-        this.errorMessage.setMessage(message);
-        this.errorMessage.setCode(code);
+        ErrorMessage errorMessage1 = new ErrorMessage();
+        errorMessage1.setMessage(message);
+        errorMessage1.setCode(code);
+        this.errorMessage = errorMessage1;
     }
 }

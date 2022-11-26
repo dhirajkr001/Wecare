@@ -14,8 +14,8 @@ public class CoachServiceImpl implements CoachService{
 
     @Override
     public String addCoach(Coach coach) throws WecareException {
-        if (null == coach) {
-            throw new WecareException("Cannot save null value", 401);
+        if ("ppp".equals(coach.getName())) {
+            throw new WecareException("Cannot save ppp value", 401);
         }
         coachRepository.save(coach);
         return "Coach Added successfully";
