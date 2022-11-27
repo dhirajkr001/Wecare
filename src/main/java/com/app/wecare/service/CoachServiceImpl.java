@@ -13,10 +13,7 @@ public class CoachServiceImpl implements CoachService{
     private CoachRepository coachRepository;
 
     @Override
-    public String addCoach(Coach coach) throws WecareException {
-        if ("ppp".equals(coach.getName())) {
-            throw new WecareException("Cannot save ppp value", 401);
-        }
+    public String addCoach(Coach coach) {
         coachRepository.save(coach);
         return "Coach Added successfully";
     }

@@ -8,7 +8,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class WeCareApplication {
 
 	public static void main(String[] args)  {
-		System.out.println("Hi Dhiraj, application started");
 		SpringApplication.run(WeCareApplication.class, args);
 	}
 

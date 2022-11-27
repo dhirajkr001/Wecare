@@ -26,7 +26,7 @@ public class CoachRestController {
 
     @PostMapping(value = "/coaches", consumes = "application/json")
     ResponseEntity<GenericResponse> createCoach( @RequestHeader(value = "source-system") final String sourceSystem,
-            @Valid @RequestBody CoachDTO coach, Errors errors) throws WecareException {
+            @Valid @RequestBody CoachDTO coach, Errors errors) {
         if(errors.hasErrors()){
             String errMsg = errors.getAllErrors().stream()
                     .map(DefaultMessageSourceResolvable::getDefaultMessage).collect(Collectors.joining(","));
