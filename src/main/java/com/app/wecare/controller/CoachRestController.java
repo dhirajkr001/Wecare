@@ -7,6 +7,8 @@ import com.app.wecare.entity.Coach;
 import com.app.wecare.exception.WecareException;
 import com.app.wecare.mapper.CoachMapper;
 import com.app.wecare.service.CoachService;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
@@ -23,10 +25,13 @@ public class CoachRestController {
 
     @Autowired
     CoachService coachService;
+    private static final Log LOGGER = LogFactory.getLog(CoachRestController.class);
 
     @PostMapping(value = "/coaches", consumes = "application/json")
     ResponseEntity<GenericResponse> createCoach( @RequestHeader(value = "source-system") final String sourceSystem,
             @Valid @RequestBody CoachDTO coach, Errors errors) {
+        LOGGER.info("createCoach Rest API invoked");
+
         if(errors.hasErrors()){
             String errMsg = errors.getAllErrors().stream()
                     .map(DefaultMessageSourceResolvable::getDefaultMessage).collect(Collectors.joining(","));
