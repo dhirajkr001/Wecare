@@ -1,6 +1,7 @@
 package com.app.wecare.controller;
 
 import com.app.wecare.dto.request.CoachDTO;
+import com.app.wecare.dto.request.LoginDTO;
 import com.app.wecare.dto.response.ErrorResponse;
 import com.app.wecare.dto.response.GenericResponse;
 import com.app.wecare.entity.Coach;
@@ -20,14 +21,14 @@ import javax.validation.Valid;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/wecare")
+@RequestMapping("/coaches")
 public class CoachRestController {
 
     @Autowired
     CoachService coachService;
     private static final Log LOGGER = LogFactory.getLog(CoachRestController.class);
 
-    @PostMapping(value = "/coaches", consumes = "application/json")
+    @PostMapping( consumes = "application/json")
     ResponseEntity<GenericResponse> createCoach( @RequestHeader(value = "source-system") final String sourceSystem,
             @Valid @RequestBody CoachDTO coach, Errors errors) {
         LOGGER.info("createCoach Rest API invoked");
@@ -47,6 +48,21 @@ public class CoachRestController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @PostMapping(value = "/login", consumes = "application/json")
+    ResponseEntity<Boolean> loginCoach(@RequestHeader(value = "source-system") final String sourceSystem,
+                                       @Valid @RequestBody LoginDTO loginDTO) {
+        return  ResponseEntity.ok(coachService.loginCoach(loginDTO));
+    }
+
+    @GetMapping(value = "{coachId}")
+    ResponseEntity<GenericResponse> getCoachProfile(@PathVariable Long coachId) throws WecareException{
+        Coach coach = coachService.fetchCoachByCoachId(coachId);
+        GenericResponse response = new GenericResponse();
+        response.setCode(200);
+        response.setData(coach);
+        response.setMessage("Found the coach");
+        return ResponseEntity.ok(response);
+    }
     @GetMapping
     ResponseEntity<String> health(){
         return new ResponseEntity<>("I am working", HttpStatus.OK);
