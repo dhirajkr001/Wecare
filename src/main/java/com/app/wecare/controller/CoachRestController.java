@@ -18,6 +18,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
@@ -63,6 +64,18 @@ public class CoachRestController {
         response.setMessage("Found the coach");
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping(value = "/all")
+    ResponseEntity<GenericResponse> showAllCoaches(){
+        List<Coach> coaches = coachService.fetchAllCoach();
+        GenericResponse response = new GenericResponse();
+        response.setCode(200);
+        response.setMessage("All coaches");
+        response.setData(coaches);
+        return ResponseEntity.ok(response);
+    }
+
+
     @GetMapping
     ResponseEntity<String> health(){
         return new ResponseEntity<>("I am working", HttpStatus.OK);
