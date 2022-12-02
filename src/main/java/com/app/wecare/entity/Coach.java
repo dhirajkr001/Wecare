@@ -1,17 +1,21 @@
 package com.app.wecare.entity;
 
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
-@Data
+@Getter
+@Setter
 @Entity
 public class Coach {
     @Id
     @Column(name = "coach_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @TableGenerator(name = "coach_id_generator", initialValue = 100000, allocationSize = 1)
+    @GeneratedValue(generator = "coach_id_generator")
     private Long coachId;
     @Column(name = "name")
     private String name;
@@ -20,6 +24,7 @@ public class Coach {
     @Column(name = "dob")
     private LocalDate dob;
     @Column
+    @JsonIgnore
     private String password;
     @Column(name = "mobile_no")
     private Long mobileNumber;
