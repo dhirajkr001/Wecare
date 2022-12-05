@@ -1,9 +1,11 @@
 package com.app.wecare.controller;
 
+import com.app.wecare.dto.request.LoginDTO;
 import com.app.wecare.dto.request.UserDTO;
 import com.app.wecare.dto.response.ErrorResponse;
 import com.app.wecare.dto.response.GenericResponse;
 import com.app.wecare.entity.User;
+import com.app.wecare.exception.WecareException;
 import com.app.wecare.mapper.UserMapper;
 import com.app.wecare.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,16 +13,13 @@ import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("users")
+@RequestMapping("/users")
 public class UserRestController {
 
     @Autowired
@@ -42,5 +41,17 @@ public class UserRestController {
         response.setCode(200);
         response.setMessage(msg);
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/login", produces = "application/json")
+    ResponseEntity<Boolean> loginUser(@Valid @RequestBody LoginDTO loginDTO) {
+        return  ResponseEntity.ok(userService.loginUser(loginDTO));
+    }
+
+    @GetMapping(value = "/{userId}", produces = "application/json")
+    ResponseEntity<GenericResponse> getUserProfile(@PathVariable Long userId) throws WecareException {
+        User user = userService.fetchUserByUserId(userId);
+        GenericResponse response = GenericResponse.builder().code(200).data(user).message("Success").build();
+        return ResponseEntity.ok().body(response);
     }
 }
