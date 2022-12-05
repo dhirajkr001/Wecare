@@ -8,12 +8,12 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class UserDTO {
-    private String userId;
+    private Long userId;
     private String name;
     private String gender;
     private String password;
     private String mobileNumber;
     private String email;
     private LocalDate dob;
-    private AddressDTO address;
+    private Address address;
 }
