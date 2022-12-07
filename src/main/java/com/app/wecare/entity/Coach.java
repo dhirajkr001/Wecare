@@ -6,7 +6,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.awt.print.Book;
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -30,4 +32,8 @@ public class Coach {
     private Long mobileNumber;
     @Column(name = "speciality")
     private String speciality;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "coach_id")
+    List<Booking> bookings;
 }

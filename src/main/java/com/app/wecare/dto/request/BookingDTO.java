@@ -3,15 +3,26 @@ package com.app.wecare.dto.request;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.util.UUID;
+import java.time.LocalTime;
 
 @Getter
 @Setter
 public class BookingDTO {
-    private UUID bookingId;
-    private String userId;
-    private String coachId;
+
+    @NotNull
+    private Long userId;
+
+    @NotNull
+    private Long coachId;
+
+    @NotNull
     private LocalDate bookingDate;
-    private String slot;
+
+    @NotNull
+    private LocalTime startTime;
+
+    @NotNull
+    private LocalTime endTime;
 }

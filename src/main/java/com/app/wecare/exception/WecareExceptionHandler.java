@@ -8,6 +8,7 @@ import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.stream.Collectors;
 
 @RestControllerAdvice
@@ -29,6 +30,14 @@ public class WecareExceptionHandler {
 
     @ExceptionHandler(ServletRequestBindingException.class)
     public ResponseEntity<ErrorMessage> handleServletRequestBindingException(ServletRequestBindingException err){
+        ErrorMessage errorMessage = new ErrorMessage();
+        errorMessage.setMessage(err.getMessage());
+        errorMessage.setCode(400);
+        return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+    public ResponseEntity<ErrorMessage> handleSQLIntegrityConstraintViolationException(SQLIntegrityConstraintViolationException err){
         ErrorMessage errorMessage = new ErrorMessage();
         errorMessage.setMessage(err.getMessage());
         errorMessage.setCode(400);
