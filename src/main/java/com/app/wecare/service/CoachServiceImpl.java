@@ -1,6 +1,6 @@
 package com.app.wecare.service;
 
-import com.app.wecare.dto.request.LoginDTO;
+import com.app.wecare.dto.request.LoginRequest;
 import com.app.wecare.entity.Coach;
 import com.app.wecare.exception.WecareException;
 import com.app.wecare.repository.CoachRepository;
@@ -23,9 +23,9 @@ public class CoachServiceImpl implements CoachService{
     }
 
     @Override
-    public Boolean loginCoach(LoginDTO loginDTO) {
-        Optional<Coach> coach = coachRepository.findById(loginDTO.getId());
-        return (coach.isPresent() && coach.get().getPassword().equals(loginDTO.getPassword()));
+    public Boolean loginCoach(LoginRequest loginRequest) {
+        Optional<Coach> coach = coachRepository.findById(loginRequest.getId());
+        return (coach.isPresent() && coach.get().getPassword().equals(loginRequest.getPassword()));
     }
 
     @Override

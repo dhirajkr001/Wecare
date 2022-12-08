@@ -1,6 +1,6 @@
 package com.app.wecare.validation;
 
-import com.app.wecare.dto.request.BookingDTO;
+import com.app.wecare.dto.request.BookingRequest;
 import com.app.wecare.exception.WecareException;
 import com.app.wecare.repository.CoachRepository;
 import com.app.wecare.repository.UserRepository;
@@ -23,16 +23,16 @@ public class ModelValidator {
     @Autowired
     CoachRepository coachRepository;
 
-    public void bookingValidator(BookingDTO bookingDTO) throws WecareException {
-        coachIdValidator(bookingDTO.getCoachId());
-        userIdValidator(bookingDTO.getUserId());
-        bookingTimeValidator(bookingDTO);
+    public void bookingValidator(BookingRequest bookingRequest) throws WecareException {
+        coachIdValidator(bookingRequest.getCoachId());
+        userIdValidator(bookingRequest.getUserId());
+        bookingTimeValidator(bookingRequest);
     }
 
-    public void bookingTimeValidator(BookingDTO bookingDTO) throws WecareException {
-        LocalTime startTime = bookingDTO.getStartTime();
-        LocalTime endTime = bookingDTO.getEndTime();
-        LocalDate bookingDate = bookingDTO.getBookingDate();
+    public void bookingTimeValidator(BookingRequest bookingRequest) throws WecareException {
+        LocalTime startTime = bookingRequest.getStartTime();
+        LocalTime endTime = bookingRequest.getEndTime();
+        LocalDate bookingDate = bookingRequest.getBookingDate();
         LocalDateTime current = LocalDateTime.now();
 
         if (startTime.isAfter(endTime)) {

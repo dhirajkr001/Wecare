@@ -1,16 +1,14 @@
 package com.app.wecare.controller;
 
-import com.app.wecare.dto.request.BookingDTO;
+import com.app.wecare.dto.request.BookingRequest;
+import com.app.wecare.dto.request.BookingRescheduleRequest;
 import com.app.wecare.dto.response.GenericResponse;
 import com.app.wecare.exception.WecareException;
 import com.app.wecare.service.BookingService;
 import com.app.wecare.validation.ModelValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.sql.SQLIntegrityConstraintViolationException;
@@ -26,10 +24,17 @@ public class BookRestController {
     ModelValidator modelValidator;
 
     @PostMapping(value = "/booking", produces = "application/json")
-    public ResponseEntity<GenericResponse> bookAppointment(@Valid @RequestBody BookingDTO bookingDTO)
+    public ResponseEntity<GenericResponse> bookAppointment(@Valid @RequestBody BookingRequest bookingRequest)
             throws WecareException, SQLIntegrityConstraintViolationException {
-        modelValidator.bookingValidator(bookingDTO);
-        bookingService.bookAppointment(bookingDTO);
+        modelValidator.bookingValidator(bookingRequest);
+        bookingService.bookAppointment(bookingRequest);
         return ResponseEntity.ok(GenericResponse.builder().code(200).message("Success").build());
+    }
+
+    @PostMapping(value = "/booking/{bookingId}", consumes = "application/json")
+    public ResponseEntity<GenericResponse> rescheduleAppointment(@Valid @RequestBody BookingRescheduleRequest bookingRescheduleRequest,  @PathVariable Long bookingId)
+        throws WecareException {
+        bookingService.rescheduleAppointment(bookingRescheduleRequest, bookingId);
+        return ResponseEntity.ok(GenericResponse.builder().code(200).message("Reschedule Success").build());
     }
 }

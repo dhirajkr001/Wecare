@@ -7,10 +7,9 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.UUID;
 
 @Repository
-public interface BookingRepository extends JpaRepository<Booking, UUID> {
+public interface BookingRepository extends JpaRepository<Booking, Long> {
 
     @Query(value = "select count(*) from booking where user_id = :userId and booking_date = :bookingDate and ((start_time <= :startTime and end_time >= :endTime) or (start_time >= :startTime and start_time <= :endTime) " +
             "or (end_time >= :startTime and end_time <= :endTime))", nativeQuery = true)

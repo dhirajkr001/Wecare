@@ -1,7 +1,7 @@
 package com.app.wecare.controller;
 
-import com.app.wecare.dto.request.LoginDTO;
-import com.app.wecare.dto.request.UserDTO;
+import com.app.wecare.dto.request.LoginRequest;
+import com.app.wecare.dto.request.UserRequest;
 import com.app.wecare.dto.response.ErrorResponse;
 import com.app.wecare.dto.response.GenericResponse;
 import com.app.wecare.entity.User;
@@ -26,7 +26,7 @@ public class UserRestController {
     UserService userService;
 
     @PostMapping
-    public ResponseEntity<GenericResponse> createUser(@Valid @RequestBody UserDTO userDTO, Errors errors) {
+    public ResponseEntity<GenericResponse> createUser(@Valid @RequestBody UserRequest userRequest, Errors errors) {
         if(errors.hasErrors()){
             String errMsg = errors.getAllErrors().stream()
                     .map(DefaultMessageSourceResolvable::getDefaultMessage).collect(Collectors.joining(", "));
@@ -35,7 +35,7 @@ public class UserRestController {
             return ResponseEntity.ok(errorResponse);
         }
 
-        User user = UserMapper.mapUser(userDTO);
+        User user = UserMapper.mapUser(userRequest);
         String msg = userService.addCoach(user);
         GenericResponse response = new GenericResponse();
         response.setCode(200);
@@ -44,8 +44,8 @@ public class UserRestController {
     }
 
     @PostMapping(value = "/login", produces = "application/json")
-    ResponseEntity<Boolean> loginUser(@Valid @RequestBody LoginDTO loginDTO) {
-        return  ResponseEntity.ok(userService.loginUser(loginDTO));
+    ResponseEntity<Boolean> loginUser(@Valid @RequestBody LoginRequest loginRequest) {
+        return  ResponseEntity.ok(userService.loginUser(loginRequest));
     }
 
     @GetMapping(value = "/{userId}", produces = "application/json")

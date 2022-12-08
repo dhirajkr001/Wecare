@@ -1,7 +1,7 @@
 package com.app.wecare.controller;
 
-import com.app.wecare.dto.request.CoachDTO;
-import com.app.wecare.dto.request.LoginDTO;
+import com.app.wecare.dto.request.CoachRequest;
+import com.app.wecare.dto.request.LoginRequest;
 import com.app.wecare.dto.response.ErrorResponse;
 import com.app.wecare.dto.response.GenericResponse;
 import com.app.wecare.entity.Coach;
@@ -30,8 +30,8 @@ public class CoachRestController {
     private static final Log LOGGER = LogFactory.getLog(CoachRestController.class);
 
     @PostMapping( consumes = "application/json")
-    ResponseEntity<GenericResponse> createCoach( @RequestHeader(value = "source-system") final String sourceSystem,
-            @Valid @RequestBody CoachDTO coach, Errors errors) {
+    ResponseEntity<GenericResponse> createCoach(@RequestHeader(value = "source-system") final String sourceSystem,
+                                                @Valid @RequestBody CoachRequest coach, Errors errors) {
         LOGGER.info("createCoach Rest API invoked");
 
         if(errors.hasErrors()){
@@ -51,8 +51,8 @@ public class CoachRestController {
 
     @PostMapping(value = "/login", consumes = "application/json")
     ResponseEntity<Boolean> loginCoach(@RequestHeader(value = "source-system") final String sourceSystem,
-                                       @Valid @RequestBody LoginDTO loginDTO) {
-        return  ResponseEntity.ok(coachService.loginCoach(loginDTO));
+                                       @Valid @RequestBody LoginRequest loginRequest) {
+        return  ResponseEntity.ok(coachService.loginCoach(loginRequest));
     }
 
     @GetMapping(value = "{coachId}")

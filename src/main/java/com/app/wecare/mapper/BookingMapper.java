@@ -1,16 +1,16 @@
 package com.app.wecare.mapper;
 
-import com.app.wecare.dto.request.BookingDTO;
+import com.app.wecare.dto.request.BookingRequest;
 import com.app.wecare.entity.Booking;
 
 public class BookingMapper {
-    public static Booking getBooking(BookingDTO bookingDTO){
+    public static Booking getBooking(BookingRequest bookingRequest){
         Booking booking = new Booking();
-        booking.setBookingDate(bookingDTO.getBookingDate());
-        booking.setCoachId(bookingDTO.getCoachId());
-        booking.setUserId(bookingDTO.getUserId());
-        booking.setStartTime(bookingDTO.getStartTime());
-        booking.setEndTime(bookingDTO.getEndTime());
+        booking.setBookingDate(bookingRequest.getBookingDate());
+        booking.setCoachId(bookingRequest.getCoachId());
+        booking.setUserId(bookingRequest.getUserId());
+        booking.setStartTime(bookingRequest.getStartTime());
+        booking.setEndTime(bookingRequest.getEndTime());
         return booking;
     }
 }

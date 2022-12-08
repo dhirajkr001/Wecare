@@ -1,6 +1,6 @@
 package com.app.wecare.service;
 
-import com.app.wecare.dto.request.LoginDTO;
+import com.app.wecare.dto.request.LoginRequest;
 import com.app.wecare.entity.User;
 import com.app.wecare.exception.WecareException;
 import com.app.wecare.repository.UserRepository;
@@ -22,9 +22,9 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public Boolean loginUser(LoginDTO loginDTO) {
-        Optional<User> user = userRepository.findById(loginDTO.getId());
-        return user.isPresent() && user.get().getPassword().equals(loginDTO.getPassword());
+    public Boolean loginUser(LoginRequest loginRequest) {
+        Optional<User> user = userRepository.findById(loginRequest.getId());
+        return user.isPresent() && user.get().getPassword().equals(loginRequest.getPassword());
     }
 
     @Override

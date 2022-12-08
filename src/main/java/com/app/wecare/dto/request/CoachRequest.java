@@ -13,7 +13,7 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-public class CoachDTO {
+public class CoachRequest {
 
     @NotBlank
     private String name;

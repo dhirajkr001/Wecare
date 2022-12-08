@@ -9,7 +9,7 @@ import java.time.LocalTime;
 
 @Getter
 @Setter
-public class BookingDTO {
+public class BookingRequest {
 
     @NotNull
     private Long userId;

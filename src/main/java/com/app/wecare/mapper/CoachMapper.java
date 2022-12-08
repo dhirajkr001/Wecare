@@ -1,19 +1,19 @@
 package com.app.wecare.mapper;
 
-import com.app.wecare.dto.request.CoachDTO;
+import com.app.wecare.dto.request.CoachRequest;
 import com.app.wecare.entity.Coach;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CoachMapper {
-    public static Coach mapCoach(CoachDTO coachDTO) {
+    public static Coach mapCoach(CoachRequest coachRequest) {
         Coach coach = new Coach();
-        coach.setDob(coachDTO.getDob());
-        coach.setGender(coachDTO.getGender());
-        coach.setName(coachDTO.getName());
-        coach.setPassword(coachDTO.getPassword());
-        coach.setSpeciality(coachDTO.getSpeciality());
-        coach.setMobileNumber(coachDTO.getMobileNumber());
+        coach.setDob(coachRequest.getDob());
+        coach.setGender(coachRequest.getGender());
+        coach.setName(coachRequest.getName());
+        coach.setPassword(coachRequest.getPassword());
+        coach.setSpeciality(coachRequest.getSpeciality());
+        coach.setMobileNumber(coachRequest.getMobileNumber());
         return coach;
     }
 }
