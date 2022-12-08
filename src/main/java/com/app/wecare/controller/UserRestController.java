@@ -4,6 +4,7 @@ import com.app.wecare.dto.request.LoginRequest;
 import com.app.wecare.dto.request.UserRequest;
 import com.app.wecare.dto.response.ErrorResponse;
 import com.app.wecare.dto.response.GenericResponse;
+import com.app.wecare.entity.Booking;
 import com.app.wecare.entity.User;
 import com.app.wecare.exception.WecareException;
 import com.app.wecare.mapper.UserMapper;
@@ -14,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 import javax.validation.Valid;
 import java.util.stream.Collectors;
@@ -53,5 +55,18 @@ public class UserRestController {
         User user = userService.fetchUserByUserId(userId);
         GenericResponse response = GenericResponse.builder().code(200).data(user).message("Success").build();
         return ResponseEntity.ok().body(response);
+    }
+
+    @GetMapping(value = "/booking/{userId}", produces = "application/json")
+    ResponseEntity<GenericResponse> showMyAppointments(@PathVariable Long userId) {
+        List<Booking> bookings = userService.fetchAllBookingByUserId(userId);
+        String message = null;
+        if(bookings.isEmpty()){
+            message = "You don't have any appointments!!";
+        }
+        else{
+            message  = "You have " + bookings.size() + " appointments!!";
+        }
+        return ResponseEntity.ok().body(GenericResponse.builder().code(200).message(message).data(bookings).build());
     }
 }

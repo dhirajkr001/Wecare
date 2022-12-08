@@ -1,12 +1,15 @@
 package com.app.wecare.service;
 
 import com.app.wecare.dto.request.LoginRequest;
+import com.app.wecare.entity.Booking;
 import com.app.wecare.entity.User;
 import com.app.wecare.exception.WecareException;
+import com.app.wecare.repository.BookingRepository;
 import com.app.wecare.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -14,6 +17,9 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    BookingRepository bookingRepository;
 
     @Override
     public String addCoach(User user) {
@@ -32,5 +38,9 @@ public class UserServiceImpl implements UserService{
        Optional<User> user =  userRepository.findById(userId);
         if(user.isEmpty()) throw new WecareException("No user found for the coachId", 4044);
         return user.get();
+    }
+    @Override
+    public List<Booking> fetchAllBookingByUserId(Long userId){
+        return bookingRepository.findAllByUserId(userId);
     }
 }

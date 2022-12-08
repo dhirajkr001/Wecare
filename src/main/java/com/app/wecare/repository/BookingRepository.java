@@ -21,4 +21,6 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     Long findCoachAppointmentCountBookingBetweenSlot(Long coachId, LocalTime startTime, LocalTime endTime, LocalDate bookingDate);
 
     List<Booking> findAllByCoachId(Long coachId);
+
+    List<Booking> findAllByUserId(Long userId);
 }
