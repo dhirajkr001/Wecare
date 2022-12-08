@@ -7,6 +7,7 @@ import com.app.wecare.exception.WecareException;
 import com.app.wecare.service.BookingService;
 import com.app.wecare.validation.ModelValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,5 +37,11 @@ public class BookRestController {
         throws WecareException {
         bookingService.rescheduleAppointment(bookingRescheduleRequest, bookingId);
         return ResponseEntity.ok(GenericResponse.builder().code(200).message("Reschedule Success").build());
+    }
+
+    @DeleteMapping(value = "/booking/{bookingId}")
+    public ResponseEntity<GenericResponse> deleteAppointment(@PathVariable Long bookingId) throws EmptyResultDataAccessException {
+        bookingService.deleteAppointment(bookingId);
+        return ResponseEntity.ok(GenericResponse.builder().code(200).message("Deletion Successful").build());
     }
 }

@@ -9,6 +9,7 @@ import com.app.wecare.repository.BookingRepository;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -67,5 +68,10 @@ public class BookingServiceImpl implements BookingService{
         booking.get().setEndTime(bookingRescheduleRequest.getEndTime());
         booking.get().setBookingDate(bookingRescheduleRequest.getBookingDate());
         bookingRepository.save(booking.get());
+    }
+
+    @Override
+    public void deleteAppointment(Long bookingId) throws EmptyResultDataAccessException {
+        bookingRepository.deleteById(bookingId);
     }
 }
