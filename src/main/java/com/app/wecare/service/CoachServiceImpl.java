@@ -1,8 +1,10 @@
 package com.app.wecare.service;
 
 import com.app.wecare.dto.request.LoginRequest;
+import com.app.wecare.entity.Booking;
 import com.app.wecare.entity.Coach;
 import com.app.wecare.exception.WecareException;
+import com.app.wecare.repository.BookingRepository;
 import com.app.wecare.repository.CoachRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,9 @@ public class CoachServiceImpl implements CoachService{
 
     @Autowired
     private CoachRepository coachRepository;
+
+    @Autowired
+    private BookingRepository bookingRepository;
 
     @Override
     public String addCoach(Coach coach) {
@@ -38,6 +43,11 @@ public class CoachServiceImpl implements CoachService{
     @Override
     public List<Coach> fetchAllCoach() {
         return coachRepository.findAll();
+    }
+
+    @Override
+    public List<Booking> fetchAllBookingCoachByCoachId(Long coachId) {
+        return bookingRepository.findAllByCoachId(coachId);
     }
 
 

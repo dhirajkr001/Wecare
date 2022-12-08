@@ -1,6 +1,7 @@
 package com.app.wecare.service;
 
 import com.app.wecare.dto.request.LoginRequest;
+import com.app.wecare.entity.Booking;
 import com.app.wecare.entity.Coach;
 import com.app.wecare.exception.WecareException;
 
@@ -14,4 +15,6 @@ public interface CoachService {
      Coach fetchCoachByCoachId(Long coachId) throws WecareException;
 
      List<Coach> fetchAllCoach();
+
+     List<Booking> fetchAllBookingCoachByCoachId(Long coachId);
 }

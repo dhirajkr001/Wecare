@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 @Repository
 public interface BookingRepository extends JpaRepository<Booking, Long> {
@@ -18,4 +19,6 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     @Query(value = "select count(*) from booking where coach_id = :coachId and booking_date = :bookingDate and ((start_time <= :startTime and end_time >= :endTime) or (start_time >= :startTime and start_time <= :endTime) " +
             "or (end_time >= :startTime and end_time <= :endTime))", nativeQuery = true)
     Long findCoachAppointmentCountBookingBetweenSlot(Long coachId, LocalTime startTime, LocalTime endTime, LocalDate bookingDate);
+
+    List<Booking> findAllByCoachId(Long coachId);
 }

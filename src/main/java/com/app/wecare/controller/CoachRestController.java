@@ -4,6 +4,7 @@ import com.app.wecare.dto.request.CoachRequest;
 import com.app.wecare.dto.request.LoginRequest;
 import com.app.wecare.dto.response.ErrorResponse;
 import com.app.wecare.dto.response.GenericResponse;
+import com.app.wecare.entity.Booking;
 import com.app.wecare.entity.Coach;
 import com.app.wecare.exception.WecareException;
 import com.app.wecare.mapper.CoachMapper;
@@ -73,6 +74,18 @@ public class CoachRestController {
         response.setMessage("All coaches");
         response.setData(coaches);
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping(value = "/booking/{coachId}", produces = "application/json")
+    ResponseEntity<GenericResponse> showMySchedule(@PathVariable Long coachId) {
+        List<Booking> bookings = coachService.fetchAllBookingCoachByCoachId(coachId);
+        String message = null;
+        if (bookings.isEmpty()) {
+            message = "No Schedule for you!!!";
+        } else {
+            message = "You have " + bookings.size() + " appointments!!";
+        }
+        return ResponseEntity.ok().body(GenericResponse.builder().code(200).message(message).data(bookings).build());
     }
 
 
